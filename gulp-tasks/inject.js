@@ -55,9 +55,9 @@ gulp.task('replacePath', function () {
     var replacePath1 = gulp.src('pages/**/*.html', {
             base: "./"
         })
-        .pipe(replace('src="assets/images/', 'src="../../assets/images/'))
-        .pipe(replace('href="pages/', 'href="../../pages/'))
-        .pipe(replace('href="index.html"', 'href="../../index.html"'))
+        .pipe(replace('src="assets/images/', 'src="../assets/images/'))
+        .pipe(replace('href="pages/', 'href="../pages/'))
+        .pipe(replace('href="index.html"', 'href="../index.html"'))
         .pipe(gulp.dest('.'));
     var replacePath2 = gulp.src('./**/index.html', {
             base: "./"
