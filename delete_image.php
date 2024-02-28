@@ -1,7 +1,19 @@
 <?php
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    if (isset($_POST["image_id"])) {
-        $imageId = $_POST["image_id"];
+      // Check if the 'data' parameter is set in the URL
+      if (isset($_GET['data'])) {
+        // Retrieve the value of the 'data' parameter
+        $imageId = $_GET['data'];
+
+        // Use the data for further processing or display
+   
+      } else {
+        // Handle the case when the 'data' parameter is not set
+        echo "No data parameter found in the URL.";
+      }
+      ?>
+
+
+<?php
 
         // Fetch the image path from the database
         $imagePath = getImagePathFromDatabase($imageId);
@@ -17,10 +29,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         } else {
             echo "Image not found in the database.";
         }
-    } else {
-        echo "Invalid request.";
-    }
-}
+   
 
 function getImagePathFromDatabase($imageId) {
     try {
@@ -91,6 +100,9 @@ function deleteImageFile($imagePath) {
         // Attempt to delete the file
         if (unlink($imagePath)) {
             echo "Image file deleted successfully.";
+            echo '<script type="text/javascript">
+            window.location.href = window.location.href;
+          </script>';
         } else {
             echo "Error deleting image file.";
         }

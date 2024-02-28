@@ -3,7 +3,7 @@
 <nav class="sidebar sidebar-offcanvas" id="sidebar">
   <ul class="nav">
     <li class="nav-item nav-profile">
-      <a href="#" class="nav-link">
+      <a href="profile.php" class="nav-link">
         <div class="nav-profile-image">
           <img src="../logo1.png" alt="profile">
           <span class="login-status online"></span>

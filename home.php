@@ -45,24 +45,7 @@
 
 <body>
   <div class="container-scroller">
-    <div class="row p-0 m-0 proBanner" id="proBanner">
-      <div class="col-md-12 p-0 m-0">
-        <div class="card-body card-body-padding d-flex align-items-center justify-content-between">
-          <div class="ps-lg-1">
-            <div class="d-flex align-items-center justify-content-between">
-              <p class="mb-0 font-weight-medium me-3 buy-now-text">Free 24/7 customer support, updates, and more with this template!</p>
-              <a href="https://www.bootstrapdash.com/product/purple-bootstrap-admin-template/?utm_source=organic&utm_medium=banner&utm_campaign=buynow_demo" target="_blank" class="btn me-2 buy-now-btn border-0">Get Pro</a>
-            </div>
-          </div>
-          <div class="d-flex align-items-center justify-content-between">
-            <a href="https://www.bootstrapdash.com/product/purple-bootstrap-admin-template/"><i class="mdi mdi-home me-3 text-white"></i></a>
-            <button id="bannerClose" class="btn border-0 p-0">
-              <i class="mdi mdi-close text-white me-0"></i>
-            </button>
-          </div>
-        </div>
-      </div>
-    </div>
+   
     <!-- partial:partials/_navbar.html -->
     <?php
 
@@ -108,7 +91,7 @@
                   <h4 class="font-weight-normal mb-3">Weekly Visits <i class="mdi mdi-chart-line mdi-24px float-right"></i>
                   </h4>
                   <h2 class="mb-5">15</h2>
-                
+
                 </div>
               </div>
             </div>
@@ -119,7 +102,7 @@
                   <h4 class="font-weight-normal mb-3">Monthley Visits <i class="mdi mdi-bookmark-outline mdi-24px float-right"></i>
                   </h4>
                   <h2 class="mb-5">15</h2>
-                 
+
                 </div>
               </div>
             </div>
@@ -130,14 +113,14 @@
                   <h4 class="font-weight-normal mb-3">Visitors Online <i class="mdi mdi-diamond mdi-24px float-right"></i>
                   </h4>
                   <h2 class="mb-5">1</h2>
-              
+
                 </div>
               </div>
             </div>
           </div>
 
 
-        
+
 
 
 
@@ -170,7 +153,6 @@
                             // Access the data using column names
                             $x = 1;
                             $x++;
-                      
 
 
                             // Do something with the data (e.g., display it)
@@ -223,38 +205,37 @@
 
             <?php
 
-include_once('database.php');
+            include_once('database.php');
 
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    // Retrieve form data
-    $exp = $_POST["exp"];
-    $att = $_POST["att"];
-    $con = $_POST["con"];
-    $cases = $_POST["cases"];
-    $client = $_POST["client"];
-    $nat = $_POST["nat"];
+            if ($_SERVER["REQUEST_METHOD"] == "POST") {
+              // Retrieve form data
+              $exp = $_POST["exp"];
+              $att = $_POST["att"];
+              $con = $_POST["con"];
+              $cases = $_POST["cases"];
+              $client = $_POST["client"];
+              $nat = $_POST["nat"];
 
-            // Insert data into the database using prepared statement
-            $sql = "UPDATE counters SET exp = ?, att = ?,con = ?,cases = ? , client = ?,nat=? WHERE id = 6"; // Assuming 'id' is the primary key
-            $stmt = $conn->prepare($sql);
-         
-            // Bind the parameters with data types
-            $stmt->bind_param("ssssss", $exp, $att,$con  ,$cases, $client,$nat);
+              // Insert data into the database using prepared statement
+              $sql = "UPDATE counters SET exp = ?, att = ?,con = ?,cases = ? , client = ?,nat=? WHERE id = 6"; // Assuming 'id' is the primary key
+              $stmt = $conn->prepare($sql);
 
-            if ($stmt->execute()) {
+              // Bind the parameters with data types
+              $stmt->bind_param("ssssss", $exp, $att, $con, $cases, $client, $nat);
+
+              if ($stmt->execute()) {
                 echo "Blog post  successfully created!";
-            } else {
+              } else {
                 echo "Error: " . $stmt->error;
+              }
+
+              $stmt->close();
+
+
+              // Close the database connection
+              $conn->close();
             }
-
-            $stmt->close();
-     
-
-    // Close the database connection
-    $conn->close();
-
-}
-?>
+            ?>
 
             <div class="col-md-5 grid-margin stretch-card">
               <div class="card">
@@ -281,18 +262,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
           <?php
 
 
-function changeCounter(){
+          function changeCounter()
+          {
 
-  $sql = "update counters values ";
-
-
-}
-
+            $sql = "update counters values ";
+          }
 
 
 
 
-?>
+
+          ?>
 
 
         </div>

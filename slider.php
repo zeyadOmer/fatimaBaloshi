@@ -18,52 +18,65 @@
     <!-- End layout styles -->
     <link rel="shortcut icon" href="assets/images/favicon.ico" />
     <style>
-        .img-con{
-            display: flex;
-            margin: auto;
-            justify-content: space-evenly;
-            flex-wrap: wrap;
+    .img-con {
+      display: flex;
+      margin: auto;
+      justify-content: space-evenly;
 
-        }
-        .img-con .btn{
-        display: flex;
-        width: 30%;
-        padding: 0;
-       }
-       .img-con .btn img{
-          object-fit: contain;
-          width: 100%;
-        
 
-        }
-        .dropdown-menu.show{
-          position: absolute;
-            min-width: 23.5%;
-            padding-inline: 0px;
-        }
-        .add-new{
-            height: 500px;
-            width: 500px;
-            display: none;
-            align-items: center;
-            background: #f2edf3;
-            justify-content: space-evenly;
-            margin: auto;
-            border-radius: 5px;
-            box-shadow: 0 0 2px 2px #b66dff;
-            position: absolute;
-            left: 50%;
-            top: 50%;
-            transform: translate(-50%,-50%);
+    }
 
-        }
-        .add-new form{
-            display: grid;
-            grid-template-columns: 40% 40%;
-            justify-content: space-evenly;
-            
-            
-        }
+    .img-con .btn {
+      display: flex;
+      width: 30%;
+      padding: 0;
+    }
+
+    .img-con .btn img {
+      object-fit: contain;
+    
+
+
+    }
+
+    .dropdown-menu.show {
+
+      min-width: 23%;
+      padding-inline: 0px;
+    }
+
+    .add-new {
+      height: 30vh;
+      width: 30%;
+      display: none;
+      background: #f2edf3;
+      justify-content: space-around;
+      margin: auto;
+      border-radius: 5px;
+      box-shadow: 0 0 2px 2px #b66dff;
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      z-index: 99999;
+      overflow: scroll;
+
+    }
+
+    .card-con {
+      display: flex;
+      justify-content: space-between;
+      padding: 1rem;
+      width: 100%;
+      z-index: 99;
+    }
+
+    .card {
+      display: flex;
+      justify-content: space-evenly;
+      padding: 1rem;
+
+    }
     </style>
   </head>
   <body>
@@ -118,16 +131,14 @@ if ($result) {
 
 
       
-<button type="button" class="btn btn-outline-secondary" <?php echo 'onclick="showDelete(' . $row['id'] . ')"' ?>  data-bs-toggle="dropdown"  fdprocessedid="twa7" aria-expanded="false">
-    <img src="../<?php echo $image; ?>" alt="">
-    <div class="dropdown-menu" id="<?php echo $row['id'] ?>">
-        <form action="delete_image.php" method="post">
-            <input type="hidden" name="image_id" value="<?php echo $row['id']; ?>">
-            <input type="submit" class="dropdown-item" value="Delete">
-        </form>
-    </div>
-</button>
-
+<div class="card" >
+                   
+                     <img src="../<?php echo $image; ?>" alt=""  data-bs-toggle="dropdown" fdprocessedid="twa7" aria-expanded="false">
+    <div class="dropdown-menu">
+                        <a class="dropdown-item" href="delete_image.php?data=<?php echo $row['id']; ?>">Delete</a>
+             </a>
+                      </div>
+</div>
 
 
 <?php
@@ -138,27 +149,10 @@ if ($result) {
 
 ?>
 
-<script>
-  function showDelete(id){
-   
-  console.log(document.getElementById(id));
-  if(document.getElementById(id).style.display=='none')
-  {
-  document.getElementById(id).style.display='initial';
-  }
-  else{
-  document.getElementById(id).style.display='none';
-
-  }
-
-   
-  }
-</script>
-                    
+                </div>      
                             
 
 
-            </div>
             <div class="add-new" id="add-new">
                 <form action="uploadimg.php" method="post"  enctype="multipart/form-data">
                     <label for="image">image:</label>

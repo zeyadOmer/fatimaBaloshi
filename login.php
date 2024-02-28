@@ -1,3 +1,8 @@
+<?php
+include_once('database.php')
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -68,33 +73,57 @@
 </html>
 
 
-
 <?php
 // Start the session
 session_start();
 
 // Check if the form is submitted
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    // Hardcoded username and password for demonstration purposes
-    $validUsername = "admin";
-    $validPassword = "admin";
 
     // Retrieve user input
     $inputUsername = $_POST["username"];
     $inputPassword = $_POST["password"];
 
-    // Check if credentials are valid
-    if ($inputUsername == $validUsername && $inputPassword == $validPassword) {
-        // Store user information in the session
-        $_SESSION["username"] = $inputUsername;
+    // Use prepared statements to prevent SQL injection
+    $sql = "SELECT * FROM user WHERE name = ?";
 
-        // Redirect to a dashboard or home page
-        header("Location: home.php");
-        exit();
+    // Prepare the statement
+    $stmt = $conn->prepare($sql);
+
+    // Bind the parameters
+    $stmt->bind_param("s", $inputUsername);
+
+    // Execute the query
+    $stmt->execute();
+
+    // Get the result
+    $result = $stmt->get_result();
+
+    // Check if there are rows in the result set
+    if ($result->num_rows > 0) {
+        // Fetch the user data
+        $row = $result->fetch_assoc();
+
+        // Check if the password is correct (consider using password_hash)
+        if ($inputPassword === $row['password']){
+            // Valid credentials, store user information in the session
+            $_SESSION["username"] = $inputUsername;
+
+            // Redirect to a dashboard or home page
+            header("Location: home.php");
+            exit();
+        } else {
+            // Invalid password, redirect back to login page with an error message
+            header("Location: login.php?error=Invalid credentials");
+            exit();
+        }
     } else {
-        // Invalid credentials, redirect back to login page with an error message
-        header("Location: login.php?error=Invalid credentials");
+        // User not found, redirect back to login page with an error message
+        header("Location: login.php?error=User not found");
         exit();
     }
+
+    // Close the statement
+    $stmt->close();
 }
 ?>
